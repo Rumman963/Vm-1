@@ -1,0 +1,25 @@
+name: Deploy the backend server
+on:
+    push:
+        branches: [ main ]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout the code 
+              uses: actions/checkout@v2
+
+            - name: Docker Login 
+              uses: docker/login-actions@v2
+              with:
+                username: ${{secrets.DOCKERHUB_USERNAME}}
+                password: ${{secrets.DOCKERHUB_TOKEN}}   
+
+
+            - name: Build and push
+              uses : docker/build-push-actions@v4
+              with:
+                context: .
+                file: ./docker/Dockerfile.https
+                push: true
+                tags: rummankhan/test-01-https:${{ github.sha }}

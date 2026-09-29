@@ -1,0 +1,21 @@
+{
+  "name": "db",
+  "module": "index.ts",
+  "exports":{
+    "./client":"./index.ts"
+
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prisma": "^7"
+  },
+  "peerDependencies": {
+    "typescript": "^7"
+  },
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "^7",
+    "dotenv": "^18.0.4"
+  }
+}

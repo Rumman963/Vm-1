@@ -1,12 +1,12 @@
 {
   "name": "db",
   "module": "index.ts",
-  "exports":{
-    "./client":"./index.ts"
-
+  "exports": {
+    "./client": "./index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/pg": "^8.23.1",
     "prisma": "^7"
   },
   "peerDependencies": {
@@ -15,7 +15,9 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7",
-    "dotenv": "^18.0.4"
+    "dotenv": "^18.0.4",
+    "pg": "^8.23.0"
   }
 }

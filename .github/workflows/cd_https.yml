@@ -24,8 +24,14 @@ jobs:
                 push: true
                 tags: rummankhan/test-01-https:${{ github.sha }}
               
-            - name: Deploy to the VM 
+
+            - name: Deploy to the VM
+              env:
+                SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
               run: |
-               echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/Testing-01.pem
-               chmod 700 /home/runner/Testing-01.pem
-               ssh -o StrictHostKeyChecking=no -i ~Testing-01.pem ubuntu@ec2-16-16-76-74.eu-north-1.compute.amazonaws.com -t "docker stop user_backend && docker run --name user_backend -d -p 3002:3002 rummankhan/test-01-https:${{ github.sha}}"
+                echo "$SSH_KEY" > ~/Testing-01.pem
+                chmod 600 ~/Testing-01.pem
+                ssh -o StrictHostKeyChecking=no -i ~/Testing-01.pem ubuntu@ec2-16-16-76-74.eu-north-1.compute.amazonaws.com \
+                  "sudo docker rm -f user_backend || true; \
+                   sudo docker run --name user_backend -d --restart unless-stopped -p 3002:3002 rummankhan/test-01-https:${{ github.sha }}"    
+            

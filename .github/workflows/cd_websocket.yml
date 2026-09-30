@@ -9,6 +9,7 @@ jobs:
             - name: Checkout the code 
               uses: actions/checkout@v2
 
+
             - name: Docker Login 
               uses: docker/login-actions@v2
               with:
@@ -16,10 +17,12 @@ jobs:
                 password: ${{secrets.DOCKERHUB_TOKEN}}   
 
 
+
+
             - name: Build and push
               uses : docker/build-push-actions@v4
               with:
                 context: .
-                file: ./docker/Dockerfile.https
+                file: ./docker/Dockerfile.ws
                 push: true
-                tags: rummankhan/test-01-https:${{ github.sha }}
+                tags: rummankhan/test-01-ws:${{ github.sha }}
